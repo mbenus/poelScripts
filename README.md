@@ -1,6 +1,9 @@
 # poelScripts
 Python scripts to copy data from redis to mysql
 
+# python dependencies
+pip install redis, pymysql
+
 
 # mysql
 CREATE DATABASE poel DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
