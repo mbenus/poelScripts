@@ -2,7 +2,7 @@
 Python scripts to copy data from redis to mysql
 
 # python dependencies
-pip install redis, pymysql
+pip3 install redis, pymysql
 
 
 # mysql
