@@ -60,11 +60,11 @@ class MinerStats(Resource):
         fr = to - (60 * 60 * 24 * 3) # 3 dagen
 
         select = "SELECT id, hashes, lastshare, balance, UNIX_TIMESTAMP(created) as created FROM minerstats"
-        where = " WHERE minerId=%s AND created >= FROM_UNIXTIME(%s) AND created <= FROM_UNIXTIME(%s)"
+        where = " WHERE minerId=%s AND created >= FROM_UNIXTIME(%s)"
         order = " ORDER BY created asc"
         sql = select + where + order
         with connection.cursor() as cursor:
-            cursor.execute(sql, (minerId, fr, to))
+            cursor.execute(sql, (minerId, fr))
             miners = cursor.fetchall()
             return miners
 
@@ -75,12 +75,12 @@ class MoneroPrices(Resource):
         to = time.time()
         fr = to - (60 * 60 * 24 * 3) # 3 dagen
 
-        select = "SELECT id, target, base, price, changed, volume, UNIX_TIMESTAMP(timestamp) as timestamp, UNIX_TIMESTAMP(created) as created FROM moneroprices"
-        where = " WHERE target=%s AND timestamp >= FROM_UNIXTIME(%s) AND timestamp <= FROM_UNIXTIME(%s)"
-        order = " ORDER BY created asc"
+        select = "SELECT price as y, UNIX_TIMESTAMP(created) as x FROM moneroprices"
+        where = " WHERE target=%s AND timestamp >= FROM_UNIXTIME(%s)"
+        order = " ORDER BY x asc"
         sql = select + where + order
         with connection.cursor() as cursor:
-            cursor.execute(sql, (target, fr, to))
+            cursor.execute(sql, (target, fr))
             prices = cursor.fetchall()
             return prices
 
